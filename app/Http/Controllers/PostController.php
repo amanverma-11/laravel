@@ -53,7 +53,7 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->save();
 
-        return route('post');
+        return redirect()->route('posts');
     }
 
     /**
