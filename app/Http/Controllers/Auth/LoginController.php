@@ -34,7 +34,7 @@ class LoginController extends Controller
         // Attempt to log in the user
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             // Authentication passed
-            return redirect()->intended('/post');
+            return redirect()->intended('/posts');
         }
 
         // Authentication failed
@@ -49,14 +49,14 @@ class LoginController extends Controller
     //  * @param  \Illuminate\Http\Request  $request
     //  * @return \Illuminate\Http\RedirectResponse
     //  */
-    // public function logout(Request $request)
-    // {
-    //     Auth::logout();
+    public function logout(Request $request)
+    {
+        Auth::logout();
 
-    //     $request->session()->invalidate();
+        $request->session()->invalidate();
 
-    //     $request->session()->regenerateToken();
+        $request->session()->regenerateToken();
 
-    //     return redirect('/');
-    // }
+        return redirect()->route('login');
+    }
 }

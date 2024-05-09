@@ -13,10 +13,10 @@
             <li>
                 <strong>{{ $post->title }}</strong>
                 <p>{{ $post->content }}</p>
-                <form action="{{route('edit', ['post' => $post])}}">
+                <form action="{{route('post.edit', ['post' => $post])}}">
                     <button>Edit</button>
                 </form>
-                <form method="POST" action="{{route('delete', ['post' => $post])}}">
+                <form method="POST" action="{{route('post.delete', ['post' => $post])}}">
                     @csrf
                     <input type="hidden" name="_method" value="DELETE" /> 
                     <button type="submit">Delete</button>

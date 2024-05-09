@@ -9,8 +9,9 @@
     <title>Edit Post</title>
 </head>
 <body>
+    <x-logout/>
     <h1>Edit Post</h1>
-    <form method="POST" action="{{route('update', ['post' => $post])}}">
+    <form method="POST" action="{{route('post.update', ['post' => $post])}}">
         @csrf
         @method('PUT')
         <label for="title">Title:</label><br>

@@ -7,9 +7,10 @@
     <title>Create Post</title>
 </head>
 <body>
+    <x-logout/>
     <div class="form">
         <h1>Create a New Post</h1>
-        <form method="POST" action="{{route('post')}}">
+        <form method="POST" action="{{route('post.create')}}">
             @csrf
             <label for="title">Title:</label><br>
             <input type="text" id="title" name="title"><br><br>

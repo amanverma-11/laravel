@@ -28,6 +28,7 @@
             <input type="password" id="password" name="password" required>
         </div>
         <button type="submit">Login</button>
+        <p>New User? Please register <a href={{route('register')}}>here</a></p>
     </form>
 </body>
 </html>

@@ -15,22 +15,7 @@ class PostController extends Controller
      */
 
     function showCreatePostForm(){
-        return view('post');
-    }
-
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return view('post.createPost');
     }
 
     /**
@@ -53,7 +38,7 @@ class PostController extends Controller
         $post->content = $request->content;
         $post->save();
 
-        return redirect()->route('posts');
+        return redirect()->route('posts.show');
     }
 
     /**
@@ -81,7 +66,7 @@ class PostController extends Controller
          }
  
          // Pass the post data to a view for display
-         return view('postShow', compact('post'));
+         return view('post.showPost', compact('post'));
     }
 
     /**
@@ -92,7 +77,7 @@ class PostController extends Controller
      */
     public function showEditPostForm(Post $post)
     {
-        return view('postEdit', ['post' => $post]);
+        return view('post.editPost', ['post' => $post]);
     }
 
     /**
@@ -115,7 +100,7 @@ class PostController extends Controller
             'content' => $request->content,
         ]);
 
-        return redirect()->route('posts');
+        return redirect()->route('posts.show');
     }
 
     /**
@@ -128,6 +113,6 @@ class PostController extends Controller
     {
         $post->delete();
 
-        return redirect()->route('posts');
+        return redirect()->route('posts.show');
     }
 }
