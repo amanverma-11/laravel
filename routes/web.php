@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Auth\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
@@ -44,8 +45,11 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     //Post create route
     Route::post('/post', [PostController::class, 'store']);
+    //Google Auth
 });
 
+Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('auth.google');
+Route::get('/auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle'])->name('auth.google.call-back');
 
 Route::group(['middleware' => 'guest'], function(){
     //Password reset routes
@@ -54,6 +58,8 @@ Route::group(['middleware' => 'guest'], function(){
     Route::get('/reset-password', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
     Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
 });
+
+
 
 
 

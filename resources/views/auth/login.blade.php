@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <!-- Load Tailwind CSS from Vite -->
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-100">
@@ -39,11 +40,21 @@
                     Login
                 </button>
             </div>
+            <div class="flex justify-center">
+                <span class="text-center text-lg font-semibold text-gray-500">
+                  or
+                </span>
+            </div>
+            <div>
+                <a href="{{ route('auth.google') }}" class="flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+                    Continue with Google
+                </a>
+            </div>
             <div class="flex justify-between">
                 <p class="text-sm text-gray-600">New User? <a href="{{ route('register') }}" class="text-blue-600 font-bold">Register</a></p>
                 <a href="{{route('password.request')}}" class="text-blue-600 text-sm">Forgot your password?</a>
             </div>
-            </form>
+        </form>
     </div>
 </div>
 
