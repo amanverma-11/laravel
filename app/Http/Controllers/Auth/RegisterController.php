@@ -1,8 +1,11 @@
 <?php
 namespace App\Http\Controllers\Auth;
+
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class RegisterController extends Controller
@@ -22,13 +25,18 @@ class RegisterController extends Controller
         ]);
 
         // Create the user
-        User::create([
+        $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
+        
+        //Logging in the user
+        Auth::login($user);
 
+        Session::flash('success', 'Registered Successfully!');
+        
         // Redirect the user after registration
-        return redirect('/login')->with('success', 'Registration successful. Please login.');
+        return redirect()->route('posts.show');
     }
 }

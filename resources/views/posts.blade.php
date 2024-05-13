@@ -1,28 +1,34 @@
-<!-- resources/views/posts/index.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{asset('css/postsStyle.css')}}">
     <title>All Posts</title>
+    @vite('resources/css/app.css')
 </head>
-<body>
-    <div>
-        <a href="{{route('post.create')}}">Create a New Post</a>
-        <x-logout/>
-    </div>
-    <h1>All Posts</h1>
+<body class="bg-gray-100">
 
-    <ul>
+    
+    <x-navbar/>
+    <div class="container mx-auto py-8 px-3">
+    <div class="mb-4">
+        <a href="{{ route('post.create') }}" class="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded inline-block">Create a New Post</a>
+    </div>
+    <h1 class="text-3xl font-bold mb-4">All Posts</h1>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         @foreach($allPosts as $post)
-            <li>
-                <strong>{{ $post->title }}</strong>
-                <p>{{ $post->content }}</p>
-                <a href="{{route('post.show', ['id' => $post->id])}}"><button>Show Full Post</button></a>
-            </li>
+            <div class="bg-white shadow-md rounded-lg overflow-hidden">
+                <div class="p-4">
+                    <h2 class="text-xl font-semibold mb-2">{{ $post->title }}</h2>
+                    <p class="text-gray-700">{{ $post->content }}</p>
+                </div>
+                <div class="bg-gray-100 px-4 py-2">
+                    <a href="{{ route('post.show', ['id' => $post->id]) }}" class="text-blue-500 hover:underline">Show Full Post</a>
+                </div>
+            </div>
         @endforeach
-    </ul>
+    </div>
+</div>
 </body>
 </html>

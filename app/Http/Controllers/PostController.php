@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
 {
@@ -100,6 +101,8 @@ class PostController extends Controller
             'content' => $request->content,
         ]);
 
+        Session::flash('success', 'Post updated successfully!');
+
         return redirect()->route('posts.show');
     }
 
@@ -113,6 +116,8 @@ class PostController extends Controller
     {
         $post->delete();
 
+        Session::flash('success', 'Post deleted successfully!');
+        
         return redirect()->route('posts.show');
     }
 }

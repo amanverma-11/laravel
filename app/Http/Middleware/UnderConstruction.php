@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Redirector;
 
 use Symfony\Component\HttpKernel\Exception\HttpException;
 

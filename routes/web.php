@@ -3,23 +3,30 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\PasswordResetController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\PostController;
 
 
-//Home Page
-Route::get('/', function(){ return view('home');});
+//Home Page Route
+Route::get('/', function(){ return view('home');})->name('home');
 
-// Register routes
-Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+
+// Register post request route
 Route::post('/register', [RegisterController::class, 'register']);
 
-// Login routes
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+// Login post request route
 Route::post('/login', [LoginController::class, 'login']);
 
+//Restricting already logged in user from accessing register and login routes
+Route::group(['middleware' => 'guest'], function(){
+    Route::get('/register', [RegisterController::class, 'showRegistrationForm'])->name('register');
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+
+});
+
+// Restricting unauthenticated users from accessing URLs
 Route::group(['middleware' => 'auth'], function () {
-    // Your protected routes here
 
     // Create post form routes
     Route::get('/post', [PostController::class, 'showCreatePostForm'])->name('post.create');
@@ -35,13 +42,18 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('post.delete');
     //Logout a user
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+    //Post create route
+    Route::post('/post', [PostController::class, 'store']);
 });
 
-Route::post('/post', [PostController::class, 'store']);
 
-Route::get('/about', function(){
-    return view('about');
-})->name('about');
+Route::group(['middleware' => 'guest'], function(){
+    //Password reset routes
+    Route::get('/forgot-password', [PasswordResetController::class, 'show'])->name('password.request');
+    Route::post('/forgot-password', [PasswordResetController::class, 'sendEmail'])->name('password.email');
+    Route::get('/reset-password', [PasswordResetController::class, 'showResetForm'])->name('password.reset');
+    Route::post('/reset-password', [PasswordResetController::class, 'resetPassword'])->name('password.update');
+});
 
 
 

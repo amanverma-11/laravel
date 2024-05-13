@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -34,6 +35,7 @@ class LoginController extends Controller
         // Attempt to log in the user
         if (Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
             // Authentication passed
+            Session::flash('success', 'Logged-in Successfully!');
             return redirect()->intended('/posts');
         }
 
@@ -57,6 +59,8 @@ class LoginController extends Controller
 
         $request->session()->regenerateToken();
 
-        return redirect()->route('login');
+        Session::flash('success', 'Logged-out Successfully!');
+
+        return redirect()->route('home');
     }
 }

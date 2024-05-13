@@ -1,27 +1,32 @@
-<!-- resources/views/posts/index.blade.php -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{asset('css/postsStyle.css')}}">
     <title>Post</title>
+    @vite('resources/css/app.css')
 </head>
-<body>
-    <ul>
-            <li>
-                <strong>{{ $post->title }}</strong>
-                <p>{{ $post->content }}</p>
-                <form action="{{route('post.edit', ['post' => $post])}}">
-                    <button>Edit</button>
+<body class="bg-gray-100">
+    {{-- Navbar Component --}}
+    <x-navbar/>
+
+    <div class="max-w-lg mx-auto mt-8">
+        <div class="bg-white shadow-lg rounded-lg overflow-hidden">
+            <div class="p-4">
+                <h2 class="text-xl font-semibold">{{ $post->title }}</h2>
+                <p class="text-gray-600">{{ $post->content }}</p>
+            </div>
+            <div class="px-4 py-2 bg-gray-100 flex justify-between items-center">
+                <form action="{{ route('post.edit', ['post' => $post]) }}" method="GET">
+                    <button type="submit" class="text-blue-500 hover:underline">Edit</button>
                 </form>
-                <form method="POST" action="{{route('post.delete', ['post' => $post])}}">
+                <form action="{{ route('post.delete', ['post' => $post]) }}" method="POST">
                     @csrf
-                    <input type="hidden" name="_method" value="DELETE" /> 
-                    <button type="submit">Delete</button>
+                    @method('DELETE')
+                    <button type="submit" class="text-red-500 hover:underline">Delete</button>
                 </form>
-            </li>
-    </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
