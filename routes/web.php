@@ -41,13 +41,15 @@ Route::group(['middleware' => 'auth'], function () {
     Route::put('/post/{post}/update', [PostController::class, 'update'])->name('post.update');
     //Delete a post
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('post.delete');
+    //Add a comment to the post
+    Route::post('/posts/{id}/comments', [PostController::class, 'addComment'])->name('post.addComment');
     //Logout a user
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     //Post create route
     Route::post('/post', [PostController::class, 'store']);
-    //Google Auth
 });
 
+//Google Auth
 Route::get('/auth/google', [GoogleAuthController::class, 'redirect'])->name('auth.google');
 Route::get('/auth/google/call-back', [GoogleAuthController::class, 'callbackGoogle'])->name('auth.google.call-back');
 

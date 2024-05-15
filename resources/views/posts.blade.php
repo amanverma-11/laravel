@@ -20,9 +20,10 @@
         @foreach($allPosts as $post)
             <div class="bg-white shadow-md rounded-lg overflow-hidden">
                 <div class="p-4">
-                    <h2 class="text-xl font-semibold mb-2">{{ $post->title }}</h2>
-                    <p class="text-gray-700">{{ $post->content }}</p>
+                    <h2 class="text-xl font-semibold mb-2 truncate">{{ $post->title }}</h2>
+                    <p class="text-gray-700">{{ substr($post->content, 0, 100) . (strlen($post->content) > 50 ? '...' : '') }}</p>
                 </div>
+                <p class="text-gray-500 font-semibold text-right mr-2">Created by: {{ $post->user->username }}</p>
                 <div class="bg-gray-100 px-4 py-2">
                     <a href="{{ route('post.show', ['id' => $post->id]) }}" class="text-blue-500 hover:underline">Show Full Post</a>
                 </div>

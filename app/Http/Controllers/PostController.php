@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
 use App\Models\Post;
+use App\Models\Comment;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Session;
 
 class PostController extends Controller
@@ -37,6 +38,7 @@ class PostController extends Controller
         $post = new Post();
         $post->title = $request->title;
         $post->content = $request->content;
+        $post->user_id = auth()->user()->id;
         $post->save();
 
         return redirect()->route('posts.show');
@@ -59,7 +61,7 @@ class PostController extends Controller
     public function showPost($id)
     {
          // Fetch the post with the given ID
-         $post = Post::find($id);
+         $post = Post::with('user')->find($id);
 
          // Check if the post exists
          if (!$post) {
@@ -119,5 +121,20 @@ class PostController extends Controller
         Session::flash('success', 'Post deleted successfully!');
         
         return redirect()->route('posts.show');
+    }
+
+    public function addComment(Request $request, $id)
+    {
+        $request->validate([
+            'content' => 'required|max:255',
+        ]);
+
+        $comment = new Comment();
+        $comment->content = $request->input('content');
+        $comment->post_id = $id;
+        $comment->user_id = auth()->id();
+        $comment->save();
+
+        return redirect()->route('post.show', ['id' => $id])->with('success', 'Comment added successfully');
     }
 }
