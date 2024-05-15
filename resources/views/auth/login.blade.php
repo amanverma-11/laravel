@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <!-- Load Tailwind CSS from Vite -->
     @vite('resources/css/app.css')
 </head>
 <body class="bg-gray-100">
@@ -21,7 +20,6 @@
                 </ul>
             </div>
         @endif
-        <!-- Login form -->
         <form method="POST" action="{{ route('login') }}" class="space-y-4">
             @csrf
             <div>

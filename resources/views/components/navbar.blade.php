@@ -4,13 +4,11 @@
         <div class="flex justify-between items-center py-4">
             <a href="{{ route('home') }}" class="text-lg font-semibold text-white">Home</a>
             
-            <!-- Right Side Links -->
             <div class="flex space-x-5">
-                <!-- Add contact and about links -->
+                
                 <a href="{{url()->current()}}" class="text-white hover:text-gray-300">Contact</a>
                 <a href="{{url()->current()}}" class="text-white hover:text-gray-300">About</a>
                 
-                <!-- Show login and register links based on conditions -->
                 @guest <!-- If the user is not authenticated -->
                     @if (in_array(request()->route()->getName(), ['home', 'contact', 'about'])) <!-- If on home, contact, or about page -->
                         <a href="{{ route('register') }}" class="text-white hover:text-gray-300">Register</a>

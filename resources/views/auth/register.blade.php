@@ -11,7 +11,7 @@
 <div class="min-h-screen flex justify-center items-center">
     <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h1 class="text-2xl font-bold mb-6">Register</h1>
-        <!-- Display validation errors -->
+      
         @if ($errors->any())
             <div class="mb-4">
                 <ul class="text-red-500">
@@ -21,7 +21,7 @@
                 </ul>
             </div>
         @endif
-        <!-- Register form -->
+        
         <form method="POST" action="{{ route('register') }}" class="space-y-4">
             @csrf
             <div>

@@ -4,14 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Password Reset</title>
-    <!-- Tailwind CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    @vite('resources/app/app.css')
 </head>
 <body class="bg-gray-100">
 <div class="min-h-screen flex justify-center items-center">
     <div class="bg-white p-8 rounded shadow-md w-full max-w-md">
         <h1 class="text-2xl font-bold mb-6">Reset Your Password</h1>
-        <!-- Password Reset form -->
+      
         <form method="POST" action="{{ route('password.update') }}" class="space-y-4">
             @csrf
             <input type="hidden" name="token" value="{{ $token }}">

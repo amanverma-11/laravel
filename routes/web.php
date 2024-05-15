@@ -1,12 +1,13 @@
 <?php
 
-use App\Http\Controllers\Auth\GoogleAuthController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Auth\RegisterController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\PasswordResetController;
-use App\Http\Controllers\ReportController;
+use App\Http\Controllers\LikeController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\ReportController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\PasswordResetController;
+use App\Http\Controllers\Auth\GoogleAuthController;
 
 
 //Home Page Route
@@ -31,6 +32,8 @@ Route::group(['middleware' => 'auth'], function () {
 
     // Create post form routes
     Route::get('/post', [PostController::class, 'showCreatePostForm'])->name('post.create');
+    //Post create route
+    Route::post('/post', [PostController::class, 'store']);
     // Show all posts
     Route::get('/posts', [PostController::class, 'showPosts'])->name('posts.show');
     // Show a single post
@@ -43,10 +46,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::delete('/posts/{post}', [PostController::class, 'destroy'])->name('post.delete');
     //Add a comment to the post
     Route::post('/posts/{id}/comments', [PostController::class, 'addComment'])->name('post.addComment');
+    // Add a like to the post
+    Route::post('/posts/{id}/like', [LikeController::class, 'toggleLike'])->name('post.like');
     //Logout a user
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    //Post create route
-    Route::post('/post', [PostController::class, 'store']);
 });
 
 //Google Auth
