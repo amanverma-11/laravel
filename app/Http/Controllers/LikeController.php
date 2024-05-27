@@ -14,12 +14,14 @@ class LikeController extends Controller
 
         if($like){
             $like->delete();
+            return response()->json(['status' => 'unliked']);
         } else {
 
             $like = new Like;
             $like->user_id = $user->id;
             $like->post_id = $postId;
             $like->save();
+            return response()->json(['status' => 'liked']);
         }
 
         return redirect()->route('post.show', ['id' => $postId]);

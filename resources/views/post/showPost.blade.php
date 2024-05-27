@@ -22,7 +22,7 @@
             <form action="{{route('post.like', ['id' => $post->id])}}" method="post">
                 <div class="flex justify-start mt-4 ml-4">
                     @csrf
-                    <button onclick="toggleLike()" class="like-button focus:outline-none" data-post-id="{{ $post->id }}">
+                    <button class="like-button focus:outline-none" data-post-id="{{ $post->id }}">
                         <i class="far fa-heart mr-2 text-xl"></i> <!-- Regular heart icon -->
                     </button>
                 </div>
@@ -45,25 +45,6 @@
     </div>
     <script src="{{ asset('js/all.min.js') }}"></script>
     {{-- JavaScript for like button toggle --}}
-    <script src="">
-        document.addEventListener("DOMContentLoaded", function () {
-    document
-        .querySelector(".like-button")
-        .addEventListener("click", function (event) {
-            event.preventDefault();
-            const postId = this.getAttribute("data-post-id");
-            const icon = this.querySelector("i");
-
-            if(icon.classList.contains("far")){
-                icon.classList.remove("far");
-                icon.classList.add("fas");
-            } else{
-                icon.classList.remove("fas");
-                icon.classList.add("far");
-            }
-        });
-});
-
-    </script>
+    <script src="{{ asset('js/like.js') }}"></script>
 </body>
 </html>
